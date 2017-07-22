@@ -6,6 +6,8 @@ from collections import Counter
 import sys
 
 
+MOST_FREQUENT_WORDS_LIMIT = 10
+
 def load_data(filepath):
     words_list = []
     if not os.path.exists(filepath):
@@ -25,11 +27,11 @@ def get_word_from_line(text_line):
 
 
 def get_most_frequent_words(words_list):
-    return Counter(words_list).most_common(10)
+    return Counter(words_list).most_common(MOST_FREQUENT_WORDS_LIMIT)
 
 
 def pprint_words_list(words_list):
-    for item in words_list:
+    for word in words_list:
         print('слово "{}" встретилось - {} - раз;'.format(item[0], item[-1]))
 
 
