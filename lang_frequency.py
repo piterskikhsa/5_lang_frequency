@@ -1,12 +1,44 @@
+import os
+import re
+import string
+from collections import Counter
+
+import sys
 
 
 def load_data(filepath):
-    pass
+    words_list = []
+    if not os.path.exists(filepath):
+        return None
+    with open(filepath, 'r') as file_handler:
+        for line in file_handler:
+            words_list += get_word_from_line(line)
+
+    return words_list
 
 
-def get_most_frequent_words(text):
-    pass
+def get_word_from_line(text_line):
+    words = text_line.lower()
+    words = re.findall(r'\w+', words)
+    words = [w.rstrip(string.punctuation) for w in words]
+    return words
+
+
+def get_most_frequent_words(words_list):
+    return Counter(words_list).most_common(10)
+
+
+def pprint_words_list(words_list):
+    for item in words_list:
+        print('слово "{}" встретилось - {} - раз;'.format(item[0], item[-1]))
 
 
 if __name__ == '__main__':
-    pass
+    if len(sys.argv) > 1:
+        file_path = sys.argv[1]
+    else:
+        file_path = input('ВВедите путь к файлу: ')
+    words = load_data(file_path)
+    if words:
+        most_frequent_words = get_most_frequent_words(words)
+        pprint_words_list(most_frequent_words)
