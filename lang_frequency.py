@@ -18,7 +18,7 @@ def load_data(filepath):
 def get_word_from_file(text_file):
     words = text_file.lower()
     words = re.findall(r'\w+', words)
-    words = [w.rstrip(string.punctuation) for w in words]
+    words = [word.rstrip(string.punctuation) for word in words]
     return words
 
 
